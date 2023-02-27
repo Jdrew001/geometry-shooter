@@ -1,12 +1,13 @@
 import Phaser from 'phaser';
+import { Entity } from './base';
 
-export class Player {
+export class Player implements Entity {
 
     private _playerSprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
     get PlayerSprite() { return this._playerSprite; }
     private set PlayerSprite(sprite) { this._playerSprite = sprite; }
 
-    private _scene: Phaser.Scene;
+    _scene: Phaser.Scene;
 
     keyA;
 	keyS;
@@ -44,6 +45,10 @@ export class Player {
     update() {
         this.managePlayerMovement();
     }
+
+	destroy() {
+		throw new Error('Method not implemented.');
+	}
 
     resetFromBounds() {
         this._scene.physics.world.on('worldbounds', (body, up, down, left, right) => {

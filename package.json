@@ -15,6 +15,10 @@
 	"dependencies": {
 		"@types/matter-js": "^0.18.2",
 		"matter-js": "^0.19.0",
-		"phaser": "^3.55.2"
+		"phaser": "^3.55.2",
+		"random": "^4.1.0",
+		"reflect-metadata": "^0.1.13",
+		"rxjs": "^7.8.0",
+		"typedi": "^0.10.0"
 	}
 }

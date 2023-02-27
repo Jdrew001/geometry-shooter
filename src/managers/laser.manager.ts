@@ -29,7 +29,6 @@ export class LaserManager {
         // add "entity count" to array
         for(let i = 0; i < this.entityCount; i++) {
             let tempLaser = new Laser(this._scene);
-            tempLaser.preload();
             tempLaser.create();
             this._lasers.push(tempLaser);
         }
@@ -58,7 +57,6 @@ export class LaserManager {
         item.rotation = playerRotation;
         item.position = new Phaser.Math.Vector2(middlePosX+ vecAngle.x, middlePosY +  vecAngle.y);
         item.updateForFire();
-        item.update();
 
         // increment laser
         this.entityIndex == this.entityCount-1? this.entityIndex = 0: this.entityIndex++;

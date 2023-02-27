@@ -19,7 +19,7 @@ export class Laser implements Entity {
     }
 
     create() {
-        this.LaserSprite = this._scene.physics.add.sprite(-10, -10, 'laser');
+        this.LaserSprite = this._scene.physics.add.sprite(-100, -100, 'laser');
         this.LaserSprite.setScale(1/3);
     }
 
