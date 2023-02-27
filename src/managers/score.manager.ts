@@ -1,3 +1,6 @@
+import { Service } from "typedi";
+
+@Service()
 export class ScoreManager {
     private _scene: Phaser.Scene;
     private _score: number = 0;
@@ -7,14 +10,14 @@ export class ScoreManager {
 
     get scene() { return this._scene; }
     get score() { return this._score; }
-    set score(value: number) { this.score = value; }
-
-    constructor(scene: Phaser.Scene) {
-        this._scene = scene;
-    }
+    set score(value: number) { this._score = value; }
     
     preload() {
         
+    }
+
+    init(scene: Phaser.Scene) {
+        this._scene = scene;
     }
 
     create() {
@@ -32,6 +35,7 @@ export class ScoreManager {
 
     addScore(value: number) {
         this.score += value;
+        this.scoreText.setText(`Score: ${this.score}`);
     }
 
     resetScore() {

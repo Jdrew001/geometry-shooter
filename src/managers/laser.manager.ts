@@ -1,21 +1,26 @@
 import { Game } from "phaser";
+import Container, { Service } from "typedi";
 import { Laser } from "../entity/laser";
 import { Player } from "../entity/player";
+import { EventManager } from "./event.manager";
+import _ from "lodash";
 
+@Service()
 export class LaserManager {
 
     _player: Player;
     _scene: Phaser.Scene;
-    entityCount = 25;
-    entityIndex = 0;
     fireRate: number = 200
     nextShot: number;
 
+    get lasers() { return this._lasers; }
     private _lasers: Array<Laser> = [];
 
     spaceKey; 
 
-    constructor(scene: Phaser.Scene, player: Player) {
+    eventManager: EventManager = Container.get(EventManager);
+
+    init(scene: Phaser.Scene, player: Player) {
         this._scene = scene;
         this._player = player;
     }
@@ -26,15 +31,11 @@ export class LaserManager {
     }
 
     create() {
-        // add "entity count" to array
-        for(let i = 0; i < this.entityCount; i++) {
-            let tempLaser = new Laser(this._scene);
-            tempLaser.create();
-            this._lasers.push(tempLaser);
-        }
+       
     }
 
     update() {
+        this.removeDestroyedLasers();
         if (this.spaceKey.isDown) {
             if (this.nextShot > this._scene.time.now) return;
             this.fireLaser();
@@ -43,22 +44,29 @@ export class LaserManager {
         }
     }
 
+    private removeDestroyedLasers() {
+        this._lasers = this._lasers.filter(o => !o.IsDestroyed);
+        this._lasers.forEach(laser => {
+            laser.checkForBoundary();
+        })
+    }
+
     private fireLaser() {
+        let tempLaser = _.clone(new Laser(this._scene)) as Laser;
+        tempLaser.create();
+
         let playerBody = this._player.PlayerSprite.body; 
         let pos = playerBody.position;
-        let middlePosX = pos.x + (playerBody.width / 2) - 15;
+        let middlePosX = pos.x + (playerBody.width / 2) - 49;
         let middlePosY = pos.y + (playerBody.height / 2)
         let playerRotation = this._player.PlayerSprite.body.rotation;
-        let vecAngle = this._scene.physics.velocityFromAngle(this._player.PlayerSprite.angle, 250*0.2);    
-        console.log(vecAngle)      
+        let vecAngle = this._scene.physics.velocityFromAngle(this._player.PlayerSprite.angle, 250*0.2);        
         
+        tempLaser.rotation = playerRotation;
+        tempLaser.position = new Phaser.Math.Vector2(middlePosX+ vecAngle.x, middlePosY +  vecAngle.y);
+        tempLaser.updateForFire();
 
-        let item = this._lasers[this.entityIndex] ;
-        item.rotation = playerRotation;
-        item.position = new Phaser.Math.Vector2(middlePosX+ vecAngle.x, middlePosY +  vecAngle.y);
-        item.updateForFire();
-
-        // increment laser
-        this.entityIndex == this.entityCount-1? this.entityIndex = 0: this.entityIndex++;
+        console.log('before add', this._lasers)
+        this._lasers.push(tempLaser);
     }
 }

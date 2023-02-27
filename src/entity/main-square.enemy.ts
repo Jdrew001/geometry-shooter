@@ -16,6 +16,7 @@ export class MainSquareEnemy implements BaseEnemy {
     rotation: number = RandomUtils.randomNumber(0,6); // radians 0-6 in 360 degres
     randomBoolean: boolean = RandomUtils.randomBoolean();
     Vector2 = Phaser.Math.Vector2;
+    name = 'SQUARELG';
 
     constructor(scene: Phaser.Scene) {
         this._scene = scene;
@@ -34,6 +35,7 @@ export class MainSquareEnemy implements BaseEnemy {
         this.sprite.setRotation(this.rotation) //rand num
         this.sprite.setMaxVelocity(200);
         this.createMovement();
+        this.sprite.setName(this.name);
     }
 
     // any shooting/pulsing/etc
