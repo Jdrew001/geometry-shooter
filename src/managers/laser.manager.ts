@@ -6,11 +6,9 @@ export class LaserManager {
 
     _player: Player;
     _scene: Phaser.Scene;
-    _laser: Laser;
     entityCount = 25;
     entityIndex = 0;
     fireRate: number = 200
-    fireEvent: Phaser.Time.TimerEvent;
     nextShot: number;
 
     private _lasers: Array<Laser> = [];
@@ -19,11 +17,11 @@ export class LaserManager {
 
     constructor(scene: Phaser.Scene, player: Player) {
         this._scene = scene;
-        this._laser = new Laser(scene);
         this._player = player;
     }
 
     preload() {
+        this._scene.load.image('laser', 'assets/player/laser.png');
         this.spaceKey = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 

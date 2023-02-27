@@ -1,11 +1,8 @@
-import Phaser from 'phaser';
-import { Laser } from './entity/laser';
-import { Player } from './entity/player';
-import { LaserManager } from './managers/laser.manager';
+import { Player } from "../entity/player";
+import { LaserManager } from "../managers/laser.manager";
 
-export default class HelloWorldScene extends Phaser.Scene {
-
-	player: Player;
+export default class MainScene extends Phaser.Scene {
+    player: Player;
 	laserManager: LaserManager;
 
 	constructor() {
@@ -15,9 +12,8 @@ export default class HelloWorldScene extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.image('laser', 'assets/player/laser.png');
+        this.laserManager.preload();
 		this.player.preload();
-		this.laserManager.preload();
 	}
 
 	create() {
