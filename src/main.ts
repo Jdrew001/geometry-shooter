@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import Phaser from 'phaser'
 
 import MainScene from './scenes/main.scene'
+import LoadingScene from './scenes/load.scene';
 
 const config = {
 	type: Phaser.AUTO,
@@ -14,7 +15,7 @@ const config = {
 			gravity: { y: 200 },
 		},
 	},
-	scene: [MainScene],
+	scene: [LoadingScene, MainScene],
 }
 
 export default new Phaser.Game(config)

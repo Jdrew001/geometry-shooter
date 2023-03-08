@@ -30,7 +30,7 @@ export class Player implements Entity {
         this.PlayerSprite = this._scene.physics.add.sprite(this._scene.scale.width/2, this._scene.scale.height/2, 'player');
 		this.PlayerSprite.setBounce(0.2);
         
-		this.PlayerSprite.setScale(1/6);
+		this.PlayerSprite.setScale(1/10);
         this.PlayerSprite.setOrigin(0.5, 0.5) 
 		this.PlayerSprite.setMaxVelocity(250, 250);
 		this.PlayerSprite.setCollideWorldBounds(true)

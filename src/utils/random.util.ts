@@ -12,6 +12,6 @@ export class RandomUtils {
     }
 
     static randomVector2(minX: number, minY: number, maxX: number, maxY: number) {
-        return new this.Vector2(random.int(minX, maxX), random.int(minY, maxY));
+        return new this.Vector2(random.float(minX, maxX), random.float(minY, maxY));
     }
 }

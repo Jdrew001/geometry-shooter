@@ -4,6 +4,7 @@ import { Laser } from "../entity/laser";
 import { Player } from "../entity/player";
 import { EventManager } from "./event.manager";
 import _ from "lodash";
+import { SoundManager, SOUNDS_CONFIGS } from "./sound.manager";
 
 @Service()
 export class LaserManager {
@@ -19,6 +20,7 @@ export class LaserManager {
     spaceKey; 
 
     eventManager: EventManager = Container.get(EventManager);
+    soundManager: SoundManager = Container.get(SoundManager);
 
     init(scene: Phaser.Scene, player: Player) {
         this._scene = scene;
@@ -26,19 +28,17 @@ export class LaserManager {
     }
 
     preload() {
-        this._scene.load.image('laser', 'assets/player/laser.png');
         this.spaceKey = this._scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
-    create() {
-       
-    }
+    create() {}
 
     update() {
         this.removeDestroyedLasers();
         if (this.spaceKey.isDown) {
             if (this.nextShot > this._scene.time.now) return;
             this.fireLaser();
+            this.soundManager.playSound(SOUNDS_CONFIGS.LASER_FIRED);
 
             this.nextShot = this._scene.time.now + this.fireRate;
         }
@@ -49,6 +49,8 @@ export class LaserManager {
         this._lasers.forEach(laser => {
             laser.checkForBoundary();
         })
+
+        this._lasers = this._lasers.filter(o => !o.IsDestroyed)
     }
 
     private fireLaser() {
@@ -66,7 +68,6 @@ export class LaserManager {
         tempLaser.position = new Phaser.Math.Vector2(middlePosX+ vecAngle.x, middlePosY +  vecAngle.y);
         tempLaser.updateForFire();
 
-        console.log('before add', this._lasers)
         this._lasers.push(tempLaser);
     }
 }

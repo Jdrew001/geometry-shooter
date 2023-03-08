@@ -1,5 +1,7 @@
 import { MainSquareEnemy } from "../entity/main-square.enemy";
+import { SmallSquareEnemy } from "../entity/small-square.enemy";
 
 export const ENEMY_OBJECTS = {
-    squareLg: MainSquareEnemy
+    SQUARELG: MainSquareEnemy,
+    SQUARESM: SmallSquareEnemy
 }

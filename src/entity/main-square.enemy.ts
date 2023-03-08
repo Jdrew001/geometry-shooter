@@ -6,10 +6,7 @@ import { BaseEnemy } from "./base.enemy";
 export class MainSquareEnemy implements BaseEnemy {
 
     sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
-    velocity: Phaser.Math.Vector2;
     position: Phaser.Math.Vector2;
-    id: string;
-    parent: BaseEnemy;
     scoreWeight: number;
     _scene: Phaser.Scene;
     angularVelocity = RandomUtils.randomNumber(95, 220);

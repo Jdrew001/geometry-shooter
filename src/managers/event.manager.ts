@@ -8,6 +8,12 @@ import { EnemyEnum } from '../utils/enemy.enum';
 export class EventManager {
 
     public laserDestroyed$: Subject<any> = new Subject<any>();
+    public createEnemy$: Subject<
+    {
+        position: Phaser.Math.Vector2,
+        count: number,
+        enemy?: EnemyEnum
+    }> = new Subject();
 
     public updateScore$: Subject<number> = new Subject<number>();
     public laserFired$: Subject<{laser: Phaser.Types.Physics.Arcade.GameObjectWithBody}> = new Subject<any>();
